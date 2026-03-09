@@ -42,9 +42,10 @@ class Map
     {
         ResetMap();
         PlaceTeeAndHole();
+        
         PlaceLargeObsticals();
         CreateFairway();
-        PlaceSmallObstacles(); // remove so that the opponent grid can be a seperate grid layer
+        PlaceSmallObstacles();
     }
 
     /// <summary>

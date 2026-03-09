@@ -1,1 +1,0 @@
-// holds the info for generating and the types of sand traps

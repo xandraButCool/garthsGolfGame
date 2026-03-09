@@ -12,8 +12,8 @@ public class Levels
     /// </summary>
     public static int levelDifficulty = 0;
     
-    public static int waterFeatures = 0;
-    public static int sandTraps = 0;
+    public static int numOfWaterFeatures = 0;
+    public static int numOfSandTraps = 0;
     public static int holelocation = 2;
     public static int teeLocation = 2;
 
@@ -24,7 +24,7 @@ public class Levels
     public static void LevelIncrease()
     {
         levelNumber++;
-        switch (levelNumber)
+        switch (levelNumber) // STUB: fill with level cases once level generation is working as intended.
         {
             default:
                 break;
