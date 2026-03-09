@@ -1,3 +1,5 @@
+using System.Diagnostics.Contracts;
+
 public class Levels
 {
     /// <summary>
@@ -10,6 +12,12 @@ public class Levels
     /// </summary>
     public static int levelDifficulty = 0;
     
+    public static int waterFeatures = 0;
+    public static int sandTraps = 0;
+    public static int holelocation = 2;
+    public static int teeLocation = 2;
+
+
     /// <summary>
     /// Increases the level number and sets the number and types of obstacles.
     /// </summary>
