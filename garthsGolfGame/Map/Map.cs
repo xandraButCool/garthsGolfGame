@@ -44,7 +44,7 @@ class Map
         PlaceTeeAndHole();
         PlaceLargeObsticals();
         CreateFairway();
-        PlaceSmallObstacles();
+        PlaceSmallObstacles(); // remove so that the opponent grid can be a seperate grid layer
     }
 
     /// <summary>
