@@ -3,9 +3,9 @@ using System.Runtime.InteropServices.Marshalling;
 
 class Map
 {
-    const int GridWidth = 15;
-    const int GridHeight = 10;
-    const int TotalGridSize = GridWidth * GridHeight;
+    public const int GridWidth = 15;
+    public const int GridHeight = 10;
+    public const int TotalGridSize = GridWidth * GridHeight;
     static Tile[,] infoGrid = new Tile[GridWidth,GridHeight];
 
     /// <summary>
@@ -42,10 +42,10 @@ class Map
     {
         ResetMap();
         PlaceTeeAndHole();
-        
-        PlaceLargeObsticals();
-        CreateFairway();
-        PlaceSmallObstacles();
+        WaterFeatures.PlaceWaterFeatures();
+        // Trees.PlaceTrees();
+        // Fairway.GenerateFairway();
+        SandTraps.PlaceSandtraps();
     }
 
     /// <summary>
@@ -58,20 +58,5 @@ class Map
         int holeLocation = Program.rand.Next(0,8);
         infoGrid[(GridWidth - 3) + (holeLocation % 3), holeLocation / 3] = new TileFlag();
         infoGrid[Program.rand.Next(1, GridWidth-2), GridHeight - 1] = new TileTee();
-    }
-
-    static void PlaceLargeObsticals(int numberOfObsticals = 0)
-    {
-        // places water hazards and dence forests
-    }
-
-    static void CreateFairway()
-    {
-        // creates a path from the tee to the green
-    }
-
-    static void PlaceSmallObstacles(int numberOfGecks = 0, int numberOfSandTraps = 0)
-    {
-        // places golf geckos and sand traps
     }
 }

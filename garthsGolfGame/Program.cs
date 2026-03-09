@@ -5,5 +5,6 @@
     static void Main()
     {
         Game.SetToGameStart();
+        Game.NextLevel();
     }
 }

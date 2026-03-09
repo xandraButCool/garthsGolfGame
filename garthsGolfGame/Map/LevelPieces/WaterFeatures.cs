@@ -4,7 +4,7 @@ class WaterFeatures
 {
     
 
-    public static void PlaceWater()
+    public static void PlaceWaterFeatures()
     {
         Console.WriteLine($"Placed {Levels.numOfWaterFeatures} water features.");
         // STUB: add water feature generation

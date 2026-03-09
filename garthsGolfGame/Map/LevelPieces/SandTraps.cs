@@ -1,6 +1,6 @@
 // holds the info for generating and the types of sand traps
 
-class sandTraps
+class SandTraps
 {
     // list of posible trap locations?
 
