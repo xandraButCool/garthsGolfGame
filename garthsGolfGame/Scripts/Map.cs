@@ -6,7 +6,7 @@ class Map
     const int GridWidth = 15;
     const int GridHeight = 10;
     const int TotalGridSize = GridWidth * GridHeight;
-    static int[,] infoGrid = new int[GridWidth,GridHeight];
+    static Tile[,] infoGrid = new Tile[GridWidth,GridHeight];
 
     /// <summary>
     /// Sets all the map tiles to chosen value.
@@ -16,7 +16,7 @@ class Map
     {
         for (int x = 0; x < TotalGridSize; x++)
         {
-            infoGrid[x % GridWidth, (x / GridWidth)] = setTo;
+            infoGrid[x % GridWidth, (x / GridWidth)] = new TileBlank();
         } 
     }
 
@@ -55,8 +55,8 @@ class Map
     static void PlaceTeeAndHole(int holeAlignment = 3, int teeAlignment = 0)
     {
         int holeLocation = Program.rand.Next(0,8);
-        infoGrid[(GridWidth - 3) + (holeLocation % 3), holeLocation / 3] = 0;
-        infoGrid[Program.rand.Next(1, GridWidth-2), GridHeight - 1] = 9;
+        infoGrid[(GridWidth - 3) + (holeLocation % 3), holeLocation / 3] = new TileFlag();
+        infoGrid[Program.rand.Next(1, GridWidth-2), GridHeight - 1] = new TileTee();
     }
 
     static void PlaceLargeObsticals(int numberOfObsticals = 0)
