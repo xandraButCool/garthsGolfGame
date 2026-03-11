@@ -6,5 +6,6 @@
     {
         Game.SetToGameStart();
         Game.NextLevel();
+        Game.NextLevel();
     }
 }

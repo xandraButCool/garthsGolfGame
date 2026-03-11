@@ -6,7 +6,7 @@ class Map
     public const int GridWidth = 15;
     public const int GridHeight = 10;
     public const int TotalGridSize = GridWidth * GridHeight;
-    static Tile[,] infoGrid = new Tile[GridWidth,GridHeight];
+    public static Tile[,] infoGrid = new Tile[GridWidth,GridHeight];
 
     /// <summary>
     /// Sets all the map tiles to chosen value.
