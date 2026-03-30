@@ -42,10 +42,10 @@ class Map
     {
         ResetMap();
         PlaceTeeAndHole();
-        WaterFeatures.PlaceWaterFeatures();
+        PlaceWaterFeatures();
         // Trees.PlaceTrees();
         // Fairway.GenerateFairway();
-        SandTraps.PlaceSandtraps();
+        PlaceSandtraps();
     }
 
     /// <summary>
@@ -58,5 +58,38 @@ class Map
         int holeLocation = Program.rand.Next(0,8);
         infoGrid[(GridWidth - 3) + (holeLocation % 3), holeLocation / 3] = new TileFlag();
         infoGrid[Program.rand.Next(1, GridWidth-2), GridHeight - 1] = new TileTee();
+    }
+
+    public static void PlaceWaterFeatures()
+    {
+        int placedWaterTiles = 0;
+        while (placedWaterTiles >= Levels.numOfWaterFeatures)
+        {
+            int placementX = Program.rand.Next(0,GridHeight-1);
+            int placementY = Program.rand.Next(1,GridHeight-1);
+
+            if (infoGrid[placementX, placementY].Overwriteable)
+            {
+                infoGrid[placementX,placementY] = new TileWater();
+                placedWaterTiles++; 
+            }
+        }
+        
+        while (placedWaterTiles >= Levels.numOfWaterFeatures * 8)
+        {
+            
+            placedWaterTiles++; 
+        }
+        
+        // STUB: add water feature generation
+
+        Console.WriteLine($"Placed {Levels.numOfWaterFeatures} water features.");
+        // Console.WriteLine($"Made {placedWaterTiles} water tiles.");
+    }
+    
+    public static void PlaceSandtraps()
+    {
+        Console.WriteLine($"Placed {Levels.numOfSandTraps} sand traps.");
+        // STUB: add sand trap generation
     }
 }
