@@ -7,5 +7,7 @@
         Game.SetToGameStart();
         Game.NextLevel();
         Game.NextLevel();
+        Game.NextLevel();
+        Game.NextLevel();
     }
 }

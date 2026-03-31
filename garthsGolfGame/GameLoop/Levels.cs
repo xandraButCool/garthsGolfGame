@@ -37,6 +37,9 @@ public class Levels
                 numOfSandTraps = 1;
                 numOfWaterFeatures = 1;
                 break;
+            case 4:
+                numOfWaterFeatures = 1;
+                break;
             default:
                 break;
         }
