@@ -1,44 +1,56 @@
 using System.ComponentModel.Design.Serialization;
 using System.Formats.Asn1;
+using System.Security.Cryptography.X509Certificates;
 
 class DisplayHandler
 {
     public const int DisplayWidth = 40;
     public const int DisplayHeight = 15;
     const int BoarderWidth = 1;
-
+    
     public static void DrawFrame()
     {
+        Console.Clear();
         Console.BackgroundColor = ConsoleColor.Black;
         for (int y = 0; y < DisplayHeight; y++)
         {
             for (int x = 0; x < DisplayWidth; x++)
             {
-                if (x > BoarderWidth -1 & x < Map.GridWidth +1 & y < Map.GridHeight +1 & y > BoarderWidth -1)
-                {
-                  DisplayMapInfo(x,y);  
-                }
-                else if (x == Map.GridWidth +1 || x == 0)
-                {
-                    if (y == Map.GridHeight +1 || y == 0)
-                    {
-                        DrawTile("darkRed",'+');
-                    }
-                    else
-                    {
-                        DrawTile("darkRed",'|');
-                    }
-                }
-                else if (y == Map.GridHeight +1 || y == 0)
-                {
-                    DrawTile("darkRed",'-');
-                }
-                else
-                {
-                    DrawTile("darkMagenta",'#');
-                }
+               DisplayTileLogic(x,y); 
             }
             Console.WriteLine();
+        }
+    }
+
+    static void DisplayTileLogic(int x, int y)
+    {
+        if (x > BoarderWidth -1 & x < Map.GridWidth +1 & y < Map.GridHeight +1 & y > BoarderWidth -1) // map display
+        {
+            DisplayMapInfo(x,y);  
+        } else if (x == Map.GridWidth +1 || x == 0 || x == DisplayWidth - 1) // boarder collumns
+        {
+            if (y == Map.GridHeight +1 || y == 0 || y == DisplayHeight - 1)
+            {
+                DrawTile("yellow",'+');
+            } else
+            {
+                DrawTile("yellow",'|');
+            }
+        } else if (y == Map.GridHeight +1 || y == 0 || y == DisplayHeight - 1) // boarder rows
+        {
+            DrawTile("yellow",'-');
+        } else if (y == Map.GridHeight +2 || y == Map.GridHeight +3) // bellow map info boxes
+        {
+            if (x > 0 & x < 16)
+            {
+                DrawTile("darkCyan",Levels.levelTileBar[y-Map.GridHeight-2,x-1]);
+            } else if (x > Map.GridWidth + 1)
+            {
+                DrawTile("darkMagenta",'#'); 
+            }
+        } else
+        {
+            DrawTile("darkMagenta",'#');
         }
     }
 
@@ -64,6 +76,9 @@ class DisplayHandler
             case "yellow":
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 break;
+            case "darkYellow":
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                break;
             case "green":
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 break;
@@ -84,6 +99,9 @@ class DisplayHandler
                 break;
             case "darkRed":
                 Console.ForegroundColor = ConsoleColor.DarkRed;
+                break;
+            case "darkCyan":
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 break;
         }
         Console.Write(tileCharacter);

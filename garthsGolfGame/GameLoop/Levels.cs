@@ -6,6 +6,9 @@ public class Levels
     /// Tracks what hole you are on. For the first 9 and/or 18 holes also tracks what will show up on the course.
     /// </summary>
     public static int levelNumber = 0;
+    public const int TotalLevels = 5; // update as you sdd levels
+    public static char[,] levelTileBar = {{'_','L','E','V','E','L',':','_','1','_','_','_','_','_','_'},{'_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'}};
+
 
     /// <summary>
     /// Wont be used unless I add an endless mode. Determains the number of obstacles on the course

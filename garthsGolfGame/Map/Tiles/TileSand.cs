@@ -2,7 +2,7 @@ using System.Drawing;
 
 public class TileSand : Tile
 {
-    public override char DisplayChar => '*';
-    public override string Color => "yellow";
+    public override char DisplayChar => 's';
+    public override string Color => "darkYellow";
     public override bool Overwriteable => true;
 }

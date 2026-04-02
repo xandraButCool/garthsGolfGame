@@ -5,9 +5,6 @@
     static void Main()
     {
         Game.SetToGameStart();
-        Game.NextLevel();
-        Game.NextLevel();
-        Game.NextLevel();
-        Game.NextLevel();
+        Game.RunLevels();
     }
 }
