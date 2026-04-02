@@ -1,9 +1,11 @@
 using System.ComponentModel.Design.Serialization;
+using System.Formats.Asn1;
 
 class DisplayHandler
 {
     public const int DisplayWidth = 40;
     public const int DisplayHeight = 15;
+    const int BoarderWidth = 1;
 
     public static void DrawFrame()
     {
@@ -12,32 +14,42 @@ class DisplayHandler
         {
             for (int x = 0; x < DisplayWidth; x++)
             {
-                if (x < Map.GridWidth & y < Map.GridHeight)
+                if (x > BoarderWidth -1 & x < Map.GridWidth +1 & y < Map.GridHeight +1 & y > BoarderWidth -1)
                 {
-                  DrawTile(Map.infoGrid[x,y].Color, Map.infoGrid[x,y].DisplayChar);  
+                  DisplayMapInfo(x,y);  
                 }
-                else if (x-1 == Map.GridWidth)
+                else if (x == Map.GridWidth +1 || x == 0)
                 {
-                    if (y-1 == Map.GridHeight)
+                    if (y == Map.GridHeight +1 || y == 0)
                     {
-                        DrawTile("yellow",'+');
+                        DrawTile("darkRed",'+');
                     }
                     else
                     {
-                        DrawTile("yellow",'|');
+                        DrawTile("darkRed",'|');
                     }
                 }
-                else if (y-1 == Map.GridHeight)
+                else if (y == Map.GridHeight +1 || y == 0)
                 {
-                    DrawTile("yellow",'-');
+                    DrawTile("darkRed",'-');
                 }
                 else
                 {
-                    DrawTile("yellow",'#');
+                    DrawTile("darkMagenta",'#');
                 }
             }
             Console.WriteLine();
         }
+    }
+
+    static void DisplayMapInfo(int overallX, int overallY)
+    {
+        int adjustedX = overallX - BoarderWidth;
+        int adjustedY = overallY - BoarderWidth;
+        if (EntityMap.entityGrid[adjustedX,adjustedY].Rendered == false)
+            DrawTile(Map.infoGrid[adjustedX,adjustedY].Color, Map.infoGrid[adjustedX,adjustedY].DisplayChar);
+        else
+            DrawTile(EntityMap.entityGrid[adjustedX,adjustedY].Color, EntityMap.entityGrid[adjustedX,adjustedY].DisplayChar);
     }
 
     static void DrawTile(string color = "white", char tileCharacter = ' ')
@@ -58,14 +70,20 @@ class DisplayHandler
             case "blue":
                 Console.ForegroundColor = ConsoleColor.Blue;
                 break;
+            case "magenta":
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                break;
+            case "cyan":
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                break;
             case "darkMagenta":
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 break;
             case "lightGreen":
                 Console.ForegroundColor = ConsoleColor.Green;
                 break;
-            default:
-                Console.ForegroundColor = ConsoleColor.White;
+            case "darkRed":
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 break;
         }
         Console.Write(tileCharacter);

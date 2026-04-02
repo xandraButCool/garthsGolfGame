@@ -38,7 +38,16 @@ public class Levels
                 numOfWaterFeatures = 1;
                 break;
             case 4:
-                numOfWaterFeatures = 1;
+                numOfWaterFeatures = 0;
+                numOfSandTraps = 4;
+                holelocation = 1;
+                teeLocation = 3;
+                break;
+            case 5:
+                numOfWaterFeatures = 3;
+                numOfSandTraps = 1;
+                teeLocation = 1;
+                holelocation = 3;
                 break;
             default:
                 break;

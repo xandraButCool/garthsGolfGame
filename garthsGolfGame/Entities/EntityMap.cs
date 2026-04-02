@@ -1,7 +1,7 @@
 class EntityMap
 {
 
-    static Entity[,] entityGrid = new Entity[Map.GridWidth,Map.GridHeight];
+    public static Entity[,] entityGrid = new Entity[Map.GridWidth,Map.GridHeight];
 
     /// <summary>
     /// Sets all the entity tiles to chosen value.
@@ -11,8 +11,14 @@ class EntityMap
     {
         for (int x = 0; x < Map.TotalGridSize; x++)
         {
-            entityGrid[x % Map.GridWidth, (x / Map.GridWidth)] = new EntityBlank();
+            entityGrid[x % Map.GridWidth, x / Map.GridWidth] = new EntityBlank();
         } 
+    }
+
+    public static void PopulateEnitityMap()
+    {
+        //places player
+        entityGrid[Map.teeX - 1, Map.GridHeight - 1] = new EntityPlayer();
     }
 
     // <summary>

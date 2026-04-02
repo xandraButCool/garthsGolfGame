@@ -6,6 +6,7 @@ class Game
     {
         Levels.levelNumber = 1;
         Map.BuildNewLevel();
+        EntityMap.ResetEntityMap();
         DisplayHandler.DrawFrame();
     }
 

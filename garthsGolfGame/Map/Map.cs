@@ -8,6 +8,7 @@ class Map
     public const int GridHeight = 10;
     public const int TotalGridSize = GridWidth * GridHeight;
     public static Tile[,] infoGrid = new Tile[GridWidth,GridHeight];
+    public static int holeX, holeY, teeX;
 
     // it will actualy place one more than the number here. I dont entirely know why, but its not worth fixing.
     const int TilesPerWaterFeature = 11;
@@ -50,25 +51,61 @@ class Map
         {
             PlaceWaterFeatures();
         }
-        // Trees.PlaceTrees();
+
         // Fairway.GenerateFairway();
-        PlaceSandtraps();
+        
+        if (Levels.numOfSandTraps > 0)
+        {
+            PlaceSandtraps();
+        }
+
+        PlaceRough();
+        EntityMap.ResetEntityMap();
+        EntityMap.PopulateEnitityMap();
     }
 
     /// <summary>
-    /// Places a the hole and tee on the grid.
+    /// Places a the hole and tee on the grid. also adds some fairway around the tee and green around the hole.
     /// </summary>
     /// <param name="holeAlignment"> choses where in the map the hole will be. NOT IMPLEMENTED.</param>
     /// <param name="teeAlignment"> Choses where on the botom of the map the tee will be. NOT IMPLEMENTED.</param>
     static void PlaceTeeAndHole(int holeAlignment = 3, int teeAlignment = 0)
     {
         int holeLocation = Program.rand.Next(0,8);
-        infoGrid[(GridWidth - 3) + (holeLocation % 3), holeLocation / 3] = new TileFlag();
-        infoGrid[Program.rand.Next(1, GridWidth-2), GridHeight - 1] = new TileTee();
+        holeX = GridWidth - 3 + (holeLocation % 3);
+        holeY = holeLocation / 3;
+        for (int y = -1; y <= 1; y++)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                int newX = holeX + x;
+                int newY = holeY + y;
+                if ((newX > GridWidth-1)||(newX < 0)||(newY > GridHeight-1)||(newY < 0))
+                {
+
+                } else if (infoGrid[newX,newY].Overwriteable == true)
+                {
+                    infoGrid[newX,newY] = new TileGreen();               
+                } 
+            }
+        }
+        infoGrid[holeX, holeY] = new TileFlag();
+        teeX = Program.rand.Next(1, GridWidth-2);
+        infoGrid[teeX, GridHeight - 1] = new TileTee();
+        for (int y = 0; y <= 1; y++)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                if (infoGrid[teeX + x, GridHeight - 1 - y].Overwriteable == true)
+                {
+                    infoGrid[teeX + x, GridHeight - 1 - y] = new TileFairway();
+                }
+            }
+        }
     }
 
     /// <summary>
-    /// places a number of 
+    /// places a number of water tiles equal to the number of water features times tilesPerWaterFeature
     /// </summary>
     public static void PlaceWaterFeatures()
     {
@@ -127,6 +164,21 @@ class Map
     {
         Console.WriteLine($"Placed {Levels.numOfSandTraps} sand traps.");
         // STUB: add sand trap generation
+    }
+
+    public static void PlaceRough()
+    {
+        for (int y = 0; y < GridHeight; y++)
+            {
+                for (int x = 0; x < GridWidth; x++)
+                {
+                    if (infoGrid[x,y].Overwriteable == false)
+                    {
+                        continue;
+                    }
+                    infoGrid[x,y] = new TileRough();
+                }
+            } 
     }
 
     /// <summary>
