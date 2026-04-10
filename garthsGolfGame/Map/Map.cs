@@ -91,6 +91,8 @@ class Map
         }
         infoGrid[holeX, holeY] = new TileFlag();
         teeX = Program.rand.Next(1, GridWidth-2);
+        Game.ballX = teeX;
+        Game.ballY = GridHeight - 1;
         infoGrid[teeX, GridHeight - 1] = new TileTee();
         for (int y = 0; y <= 1; y++)
         {

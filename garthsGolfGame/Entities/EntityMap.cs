@@ -18,7 +18,9 @@ class EntityMap
     public static void PopulateEnitityMap()
     {
         //places player
-        entityGrid[Map.teeX - 1, Map.GridHeight - 1] = new EntityPlayer();
+        Game.playerX = Map.teeX - 1;
+        Game.playerY =  Map.GridHeight - 1;
+        entityGrid[Game.playerX,Game.playerY] = new EntityPlayer();
     }
 
     // <summary>

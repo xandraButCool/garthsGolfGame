@@ -37,6 +37,10 @@ class InputCommands
             case "beatLevel":
                 BeatLevel(commandValue);
                 break;
+            case "turn":
+                Console.WriteLine($"you are now facing {commandValue}");
+                PlayerFaceing(commandValue);
+                break;
             case "input null.":
                 DisplayHandler.DrawFrame();
                 Console.WriteLine("No command entered.");
@@ -67,9 +71,14 @@ class InputCommands
         
     }
 
+    static void PlayerFaceing(int facingDirection)
+    {
+        Game.facing = facingDirection;
+    }
+
     static void Swing(int swingPower)
     {
-        
+        Game.moveBall(swingPower,Game.facing); // umm, this needs more logic.
     }
 
     static void ChangeClub(int clubNumber)
