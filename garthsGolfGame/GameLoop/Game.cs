@@ -11,6 +11,7 @@ class Game
         Levels.levelNumber = 1;
         Map.BuildNewLevel();
         EntityMap.ResetEntityMap(); 
+        EntityMap.PopulateEnitityMap();
         Levels.levelTileBar[0,8] = '1';       
     }
 
