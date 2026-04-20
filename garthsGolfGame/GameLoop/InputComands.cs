@@ -68,7 +68,25 @@ class InputCommands
     }
     static void Move(int moveDistance)
     {
+        EntityMap.entityGrid[Game.playerX,Game.playerY] = new EntityBlank();
+        int tempX = TileTools.tileX;
+        int tempY = TileTools.tileY;
+        TileTools.SetTileAdjecentDir(Game.playerX,Game.playerY,9);
         
+        for (int n=moveDistance; n>1; n--)
+        {
+            TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
+            if (!TileTools.validLocation)
+            {
+                TileTools.SetTileAdjecentDir(tempX,tempY,9);
+                EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
+                return;
+            }
+        }
+
+        Game.playerX = TileTools.tileX;
+        Game.playerY = TileTools.tileY;
+        EntityMap.entityGrid[Game.playerX,Game.playerY] = new EntityPlayer();
     }
 
     static void PlayerFaceing(int facingDirection)

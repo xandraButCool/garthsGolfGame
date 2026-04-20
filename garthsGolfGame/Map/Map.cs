@@ -191,11 +191,18 @@ class Map
     /// <returns> X,Y value of a random tile that is both overwritable and adjacent to the tile input. (int,int) format</returns>
     static (int,int) RandomOverwritableAgacentLocation(int initialX, int initialY)
     {
-        int newX, newY;
-
         List<(int,int)> possibleLocations = new List<(int, int)> {};
         
-        for (int y = -1; y <= 1; y++)
+        for (int n = 0; n <= 8; n++)
+        {
+            TileTools.SetTileAdjecentDir(initialX, initialY, n);
+            if (TileTools.mapOverwriteable && TileTools.validLocation)
+            {
+                possibleLocations.Add((TileTools.tileX,TileTools.tileY));
+            }
+        }
+
+        /*for (int y = -1; y <= 1; y++)
         {
             for (int x = -1; x <= 1; x++)
             {
@@ -209,7 +216,7 @@ class Map
                     possibleLocations.Add((newX,newY));               
                 } 
             }
-        }
+        }*/
 
         if (possibleLocations.Count <= 0)
         {
