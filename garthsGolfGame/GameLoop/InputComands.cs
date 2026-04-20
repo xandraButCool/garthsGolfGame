@@ -69,7 +69,7 @@ class InputCommands
     static void Move(int moveDistance)
     {
         EntityMap.entityGrid[Game.playerX,Game.playerY] = new EntityBlank();
-        TileTools.SetTileAdjecentDir(Game.playerX,Game.playerY,9);
+        TileTools.SetTileAdjecentDir(Game.playerX,Game.playerY,5);
         int tempX = TileTools.tileX;
         int tempY = TileTools.tileY; 
         
@@ -78,7 +78,7 @@ class InputCommands
             TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
             if (!TileTools.validLocation)
             {
-                TileTools.SetTileAdjecentDir(tempX,tempY,9);
+                TileTools.SetTileAdjecentDir(tempX,tempY,5);
                 EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
                 return;
             } else
@@ -104,7 +104,7 @@ class InputCommands
         if (TileTools.tileX == Game.ballX && TileTools.tileY == Game.ballY)
         {
             EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBlank();
-            TileTools.SetTileAdjecentDir(Game.ballX,Game.ballY,9);
+            TileTools.SetTileAdjecentDir(Game.ballX,Game.ballY,5);
             int tempX = TileTools.tileX;
             int tempY = TileTools.tileY;
             
@@ -113,7 +113,7 @@ class InputCommands
                 TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
                 if (!TileTools.validLocation)
                 {
-                    TileTools.SetTileAdjecentDir(tempX,tempY,9);
+                    TileTools.SetTileAdjecentDir(tempX,tempY,5);
                     EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
                     return;
                 } else

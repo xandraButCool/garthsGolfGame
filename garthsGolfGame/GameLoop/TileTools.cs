@@ -10,10 +10,10 @@ public class TileTools // holds a set of values for most recently checked tile.
 
     public static bool SetTileAdjecentDir(int startingX, int startingY, int direction)
     {
-        if (direction == 0 || direction == 7 || direction == 6)
+        if (direction == 4 || direction == 7 || direction == 1)
         {
             tileX = startingX - 1;
-        } else if (direction == 2 || direction == 3 || direction == 4)
+        } else if (direction == 9 || direction == 3 || direction == 6)
         {
             tileX = startingX + 1;
         } else
@@ -21,10 +21,10 @@ public class TileTools // holds a set of values for most recently checked tile.
             tileX = startingX;
         }
 
-        if (direction == 0 || direction == 1 || direction == 2)
+        if (direction == 7 || direction == 8 || direction == 9)
         {
             tileY = startingY - 1;
-        } else if (direction == 6 || direction == 4 || direction == 5)
+        } else if (direction == 1 || direction == 2 || direction == 3)
         {
             tileY = startingY + 1;
         } else
