@@ -40,7 +40,7 @@ class Game
     {
         
     }
-    public static void moveBall(int power, int direction)
+    public static void moveBall(int power)
     {
         
     }

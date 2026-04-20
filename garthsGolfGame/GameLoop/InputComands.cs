@@ -69,11 +69,11 @@ class InputCommands
     static void Move(int moveDistance)
     {
         EntityMap.entityGrid[Game.playerX,Game.playerY] = new EntityBlank();
-        int tempX = TileTools.tileX;
-        int tempY = TileTools.tileY;
         TileTools.SetTileAdjecentDir(Game.playerX,Game.playerY,9);
+        int tempX = TileTools.tileX;
+        int tempY = TileTools.tileY; 
         
-        for (int n=moveDistance; n>1; n--)
+        for (int n = moveDistance; n > 0; n--)
         {
             TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
             if (!TileTools.validLocation)
@@ -81,6 +81,10 @@ class InputCommands
                 TileTools.SetTileAdjecentDir(tempX,tempY,9);
                 EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
                 return;
+            } else
+            {
+                tempX = TileTools.tileX;
+                tempY = TileTools.tileY; 
             }
         }
 
@@ -96,7 +100,33 @@ class InputCommands
 
     static void Swing(int swingPower)
     {
-        Game.moveBall(swingPower,Game.facing); // umm, this needs more logic.
+        TileTools.SetTileAdjecentDir(Game.ballX,Game.ballY,Game.facing);
+        if (TileTools.tileX == Game.ballX && TileTools.tileY == Game.ballY)
+        {
+            EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBlank();
+            TileTools.SetTileAdjecentDir(Game.ballX,Game.ballY,9);
+            int tempX = TileTools.tileX;
+            int tempY = TileTools.tileY;
+            
+            for (int n=swingPower; n>1; n--)
+            {
+                TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
+                if (!TileTools.validLocation)
+                {
+                    TileTools.SetTileAdjecentDir(tempX,tempY,9);
+                    EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
+                    return;
+                } else
+                {
+                    tempX = TileTools.tileX;
+                    tempY = TileTools.tileY; 
+                }
+            }
+
+            Game.ballX = TileTools.tileX;
+            Game.ballY = TileTools.tileY;
+            EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBall();
+        }
     }
 
     static void ChangeClub(int clubNumber)
