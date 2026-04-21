@@ -125,6 +125,7 @@ class InputCommands
 
             Game.ballX = TileTools.tileX;
             Game.ballY = TileTools.tileY;
+            Game.ballLands();
             EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBall();
         }
     }
