@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Globalization;
 
 class InputCommands
@@ -13,13 +14,13 @@ class InputCommands
         if (playerInput == null)
         {
             return;
-        } else
-        {
+        } else {
             if (int.TryParse(playerInput.Split(',')[1], out commandValue))
                 playerCommand = playerInput.Split(',')[0];
             else
                 playerCommand = "input format wrong";
         }
+        
         switch (playerCommand)
         {
             case "move":
@@ -59,8 +60,7 @@ class InputCommands
         if (key == 99)
         {
             Game.levelCompletted = true;
-        }
-        else
+        } else
         {
             DisplayHandler.DrawFrame();
             Console.WriteLine("you dont know the key, na na na na bo bo.");
@@ -81,8 +81,7 @@ class InputCommands
                 TileTools.SetTileAdjecentDir(tempX,tempY,5);
                 EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
                 return;
-            } else
-            {
+            } else {
                 tempX = TileTools.tileX;
                 tempY = TileTools.tileY; 
             }
@@ -96,11 +95,42 @@ class InputCommands
     static void PlayerFaceing(int facingDirection)
     {
         Game.facing = facingDirection;
+        switch (facingDirection)
+        {
+            case 1:
+                Game.ballFacing = 3;
+                break;
+            case 2:
+                Game.ballFacing = 6;
+                break;
+            case 3:
+                Game.ballFacing = 9;
+                break;
+            case 4:
+                Game.ballFacing = 2;
+                break;
+            case 5:
+                Game.ballFacing = 5;
+                break;
+            case 6:
+                Game.ballFacing = 8;
+                break;
+            case 7:
+                Game.ballFacing = 1;
+                break;
+            case 8:
+                Game.ballFacing = 4;
+                break;
+            case 9:
+                Game.ballFacing = 7;
+                break;
+        }
+            
     }
 
     static void Swing(int swingPower)
     {
-        TileTools.SetTileAdjecentDir(Game.ballX,Game.ballY,Game.facing);
+        TileTools.SetTileAdjecentDir(Game.playerX,Game.playerY,Game.facing);
         if (TileTools.tileX == Game.ballX && TileTools.tileY == Game.ballY)
         {
             EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBlank();
@@ -108,16 +138,15 @@ class InputCommands
             int tempX = TileTools.tileX;
             int tempY = TileTools.tileY;
             
-            for (int n=swingPower; n>1; n--)
+            for (int n=swingPower; n>0; n--)
             {
-                TileTools.SetTileAdjecentDir(tempX,tempY,Game.facing);
+                TileTools.SetTileAdjecentDir(tempX,tempY,Game.ballFacing);
                 if (!TileTools.validLocation)
                 {
                     TileTools.SetTileAdjecentDir(tempX,tempY,5);
-                    EntityMap.entityGrid[tempX,tempY] = new EntityPlayer();
+                    EntityMap.entityGrid[tempX,tempY] = new EntityBall();
                     return;
-                } else
-                {
+                } else {
                     tempX = TileTools.tileX;
                     tempY = TileTools.tileY; 
                 }
@@ -125,7 +154,6 @@ class InputCommands
 
             Game.ballX = TileTools.tileX;
             Game.ballY = TileTools.tileY;
-            Game.ballLands();
             EntityMap.entityGrid[Game.ballX,Game.ballY] = new EntityBall();
         }
     }

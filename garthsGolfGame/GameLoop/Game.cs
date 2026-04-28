@@ -3,7 +3,8 @@ using System.Collections;
 class Game
 {
     public static bool levelCompletted = false;
-    public static int facing = 1;
+    public static int facing = 6;
+    public static int ballFacing = 8;
     public static int playerX, playerY, ballX, ballY;
     
     public static void SetToGameStart()
@@ -38,16 +39,18 @@ class Game
 
     public static void resolveTurn()
     {
-        
-    }
-    public static void ballLands()
-    {
+        checkHoleForBall();
+        if (Map.infoGrid[ballX,ballY] is TileWater)
+           ballX = Map.teeX; ballY = Map.GridHeight - 1;
         
     }
 
     static void checkHoleForBall()
     {
-        
+        if (Map.holeX == ballX && Map.holeY == ballY)
+        {
+            levelCompletted = true;
+        }
     }
 
 }
