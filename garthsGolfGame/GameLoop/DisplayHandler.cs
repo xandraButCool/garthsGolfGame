@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 class DisplayHandler
 {
     public const int DisplayWidth = 40;
-    public const int DisplayHeight = 15;
+    public const int DisplayHeight = 16;
     const int BoarderWidth = 1;
     
     public static void DrawFrame()
@@ -39,18 +39,105 @@ class DisplayHandler
         } else if (y == Map.GridHeight +1 || y == 0 || y == DisplayHeight - 1) // boarder rows
         {
             DrawTile("yellow",'-');
-        } else if (y == Map.GridHeight +2 || y == Map.GridHeight +3) // bellow map info boxes
+        } else if (y >= Map.GridHeight +2) // bellow map info boxes
         {
-            if (x > 0 & x < 16)
-            {
-                DrawTile("darkCyan",Levels.levelTileBar[y-Map.GridHeight-2,x-1]);
-            } else if (x > Map.GridWidth + 1)
-            {
-                DrawTile("darkMagenta",'#'); 
-            }
+            DrawBottomThree(x,y);
         } else
         {
             DrawTile("darkMagenta",'#');
+        }
+    }
+
+    static void DrawBottomThree(int x, int y)
+    {
+        if (x > 0 & x < 16)
+        {
+            switch (y - Map.GridHeight - 2)
+            {
+                case 1:
+                    DrawTile("darkCyan",Levels.levelTileBar[x-1]);
+                    break;
+                default:
+                    DrawTile("darkCyan",'_');
+                    break;
+            }
+            
+        } else if (x > Map.GridWidth + 1)
+        {
+            if ((x - Map.GridWidth - 1) == 1)
+            {
+                if ((y - Map.GridHeight - 1) == 1)
+                {
+                    if (Game.facing == 7)
+                        DrawTile("yellow",'↖');
+                    else
+                        DrawTile("darkCyan",'↖'); 
+                } 
+                else if ((y - Map.GridHeight - 1) == 2)
+                {
+                    if (Game.facing == 4)
+                        DrawTile("yellow",'←');
+                    else
+                        DrawTile("darkCyan",'←');
+                }
+                else if ((y - Map.GridHeight - 1) == 3)
+                {
+                    if (Game.facing == 1)
+                        DrawTile("yellow",'↙');
+                    else
+                        DrawTile("darkCyan",'↙');
+                }
+            } else if ((x - Map.GridWidth - 1) == 2)
+            {
+                if ((y - Map.GridHeight - 1) == 1)
+                {
+                    if (Game.facing == 8)
+                        DrawTile("yellow",'↑');
+                    else
+                        DrawTile("darkCyan",'↑'); 
+                } 
+                else if ((y - Map.GridHeight - 1) == 2)
+                {
+                    if (Game.facing == 5)
+                        DrawTile("yellow",'5');
+                    else
+                        DrawTile("darkCyan",'5');
+                }
+                else if ((y - Map.GridHeight - 1) == 3)
+                {
+                    if (Game.facing == 2)
+                        DrawTile("yellow",'↓');
+                    else
+                        DrawTile("darkCyan",'↓');
+                }
+            } else if ((x - Map.GridWidth - 1) == 3) 
+            {
+                if ((y - Map.GridHeight - 1) == 1)
+                {
+                    if (Game.facing == 9)
+                        DrawTile("yellow",'↗');
+                    else
+                        DrawTile("darkCyan",'↗'); 
+                } 
+                else if ((y - Map.GridHeight - 1) == 2)
+                {
+                    if (Game.facing == 6)
+                        DrawTile("yellow",'→');
+                    else
+                        DrawTile("darkCyan",'→');
+                }
+                else if ((y - Map.GridHeight - 1) == 3)
+                {
+                    if (Game.facing == 3)
+                        DrawTile("yellow",'↘');
+                    else
+                        DrawTile("darkCyan",'↘');
+                }
+            } else if (x == Map.GridWidth + 5)
+            {
+                DrawTile("darkCyan",'|');
+            } else
+                DrawTile("darkCyan",',');
         }
     }
 

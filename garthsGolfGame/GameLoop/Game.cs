@@ -13,7 +13,7 @@ class Game
         Map.BuildNewLevel();
         EntityMap.ResetEntityMap(); 
         EntityMap.PopulateEnitityMap();
-        Levels.levelTileBar[0,8] = '1';       
+        Levels.levelTileBar[8] = '1';       
     }
 
     public static void RunLevels()
@@ -41,8 +41,11 @@ class Game
     {
         checkHoleForBall();
         if (Map.infoGrid[ballX,ballY] is TileWater)
+        {
            ballX = Map.teeX; ballY = Map.GridHeight - 1;
-        
+        }
+        return;
+  
     }
 
     static void checkHoleForBall()
