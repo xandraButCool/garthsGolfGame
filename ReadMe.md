@@ -17,3 +17,6 @@ known bugs:
         - the ball theoreticly has the same glitched behavior
 
     - if the player walks onto the same tile as the ball, the ball will dissapear
+
+    - occasional crashes on level creation caused the tee
+        -is likely resolved, but needs more testing.

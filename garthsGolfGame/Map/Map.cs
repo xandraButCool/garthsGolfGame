@@ -90,7 +90,7 @@ class Map
             }
         }
         infoGrid[holeX, holeY] = new TileFlag();
-        teeX = Program.rand.Next(1, 3) + (Levels.teeLocation * 4);
+        teeX = Program.rand.Next(1, 3) + (Levels.teeLocation * 3);
         Game.ballX = teeX;
         Game.ballY = GridHeight - 1;
         infoGrid[teeX, GridHeight - 1] = new TileTee();
