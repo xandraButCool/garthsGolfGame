@@ -72,7 +72,7 @@ class Map
     static void PlaceTeeAndHole(int holeAlignment = 3, int teeAlignment = 0)
     {
         int holeLocation = Program.rand.Next(0,8);
-        holeX = GridWidth - 3 + (holeLocation % 3);
+        holeX = GridWidth + (Levels.holelocation * -3) + (holeLocation % 3);
         holeY = holeLocation / 3;
         for (int y = -1; y <= 1; y++)
         {
@@ -90,7 +90,7 @@ class Map
             }
         }
         infoGrid[holeX, holeY] = new TileFlag();
-        teeX = Program.rand.Next(1, GridWidth-2);
+        teeX = Program.rand.Next(1, 3) + (Levels.teeLocation * 4);
         Game.ballX = teeX;
         Game.ballY = GridHeight - 1;
         infoGrid[teeX, GridHeight - 1] = new TileTee();
@@ -164,23 +164,58 @@ class Map
     
     public static void PlaceSandtraps()
     {
-        Console.WriteLine($"Placed {Levels.numOfSandTraps} sand traps.");
-        // STUB: add sand trap generation
+        int placedSandTraps = 0;
+        int nextToTargets = NumberOfTargetTile('=') + NumberOfTargetTile('s');
+        int failedFindLoops = 0;
+
+        while (placedSandTraps < Levels.numOfSandTraps * 2)
+        {
+            int buildNextTo = Program.rand.Next(1,nextToTargets);
+            int seenValidTiles = 0;
+            nextToTargets = NumberOfTargetTile('=') + NumberOfTargetTile('s');
+            for (int y = 0; y < GridHeight; y++)
+            {
+                for (int x = 0; x < GridWidth; x++)
+                {
+                    if ((infoGrid[x,y] is not TileGreen) && (infoGrid[x,y] is not TileSand))
+                        continue;
+                    
+                    seenValidTiles ++;
+                    if (seenValidTiles == buildNextTo)
+                    {
+                        if (failedFindLoops > (GridHeight * GridWidth))
+                        {
+                            return;
+                        }
+                        var (newX,newY) = RandomOverwritableAgacentLocation(x,y);
+                        if ((newX == 256)&&(newY == 256))
+                        {
+                            failedFindLoops++;
+                            continue;
+                        }
+                        Console.WriteLine($"{newX},{newY}");
+                        infoGrid[newX,newY] = new TileSand();
+                        failedFindLoops = 0;
+                        placedSandTraps ++;
+                    }
+                }
+            }
+        }
     }
 
     public static void PlaceRough()
     {
         for (int y = 0; y < GridHeight; y++)
+        {
+            for (int x = 0; x < GridWidth; x++)
             {
-                for (int x = 0; x < GridWidth; x++)
+                if (infoGrid[x,y].Overwriteable == false)
                 {
-                    if (infoGrid[x,y].Overwriteable == false)
-                    {
-                        continue;
-                    }
-                    infoGrid[x,y] = new TileRough();
+                    continue;
                 }
-            } 
+                infoGrid[x,y] = new TileRough();
+            }
+        } 
     }
 
     /// <summary>
@@ -226,5 +261,27 @@ class Map
             var (returnX,returnY) = possibleLocations[selectedLocation];
             return(returnX,returnY);
         }
+    }
+
+    /// <summary>
+    /// finds the number of a given tile on the tile map. this     
+    /// </summary>
+    /// <param name="targetChar"></param>
+    /// <returns></returns>
+    static int NumberOfTargetTile(char targetChar)
+    {
+        int foundTargets = 0;
+        for (int y = 0; y < GridHeight; y++)
+        {
+            for (int x = 0; x < GridWidth; x++)
+            {
+                if (infoGrid[x,y].DisplayChar == targetChar)
+                {
+                    foundTargets ++;
+                }
+            }
+        } 
+
+        return foundTargets;
     }
 }

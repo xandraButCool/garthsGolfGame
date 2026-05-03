@@ -151,7 +151,7 @@ class DisplayHandler
             DrawTile(EntityMap.entityGrid[adjustedX,adjustedY].Color, EntityMap.entityGrid[adjustedX,adjustedY].DisplayChar);
     }
 
-    static void DrawTile(string color = "white", char tileCharacter = ' ')
+    static void DrawTile(string color = "white", char tileCharacter = ' ', string backgroundColor = "black")
     {
         switch (color){
             case "white":
@@ -189,6 +189,47 @@ class DisplayHandler
                 break;
             case "darkCyan":
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
+                break;
+        }
+        switch (backgroundColor){
+            case "white":
+                Console.BackgroundColor = ConsoleColor.White;
+                break;
+            case "red":
+                Console.BackgroundColor = ConsoleColor.Red;
+                break;
+            case "yellow":
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                break;
+            case "darkYellow":
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                break;
+            case "green":
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                break;
+            case "blue":
+                Console.BackgroundColor = ConsoleColor.Blue;
+                break;
+            case "magenta":
+                Console.BackgroundColor = ConsoleColor.Magenta;
+                break;
+            case "cyan":
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                break;
+            case "darkMagenta":
+                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                break;
+            case "lightGreen":
+                Console.BackgroundColor = ConsoleColor.Green;
+                break;
+            case "darkRed":
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                break;
+            case "darkCyan":
+                Console.BackgroundColor = ConsoleColor.DarkCyan;
+                break;
+            case "black":
+                Console.BackgroundColor = ConsoleColor.Black;
                 break;
         }
         Console.Write(tileCharacter);
