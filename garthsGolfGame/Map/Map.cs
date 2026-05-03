@@ -193,7 +193,6 @@ class Map
                             failedFindLoops++;
                             continue;
                         }
-                        Console.WriteLine($"{newX},{newY}");
                         infoGrid[newX,newY] = new TileSand();
                         failedFindLoops = 0;
                         placedSandTraps ++;
